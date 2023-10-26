@@ -23,12 +23,14 @@ mongoose.connect(process.env.CONNECTION_STRING,
 app.use(express.json());
 app.use(helmet({ crossOriginResourcePolicy : false }));
 
+const whitelist = [process.env.CLIENT_URL];
+
 const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin || [process.env.CLIENT_URL].indexOf(origin) !== -1) {
-      callback(null, true)
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
     } else {
-      callback(new Error("Not allowed by CORS"))
+      callback(new Error("Not allowed by CORS"));
     }
   },
   credentials: true,

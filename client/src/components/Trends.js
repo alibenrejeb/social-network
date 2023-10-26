@@ -21,7 +21,7 @@ const Trends = () => {
         }
     }, [posts, dispatch]);
 
-    return (
+    return Array.isArray(usersData) ? (
         <div className="trending-container">
             <h4>Trending</h4>
             <NavLink exact="true" to="/trending">
@@ -45,7 +45,7 @@ const Trends = () => {
                 </ul>
             </NavLink>
         </div>
-    );
+    ) : null;
 };
 
 export default Trends;

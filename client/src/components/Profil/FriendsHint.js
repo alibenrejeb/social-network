@@ -15,7 +15,7 @@ const FriendsHint = () => {
         console.log('useEffect FriendsHint is called');
         const findSuggestions = () => {
             let users = [];
-            usersData.map((user) => {
+            Array.isArray(usersData) && usersData.map((user) => {
                 if (user._id !== currentUser?.user?.userId && !user.followers.includes(currentUser?.user?.userId)) {
                     users.push({ userId: user._id, username: user.username, picture: user.picture });
                 }
