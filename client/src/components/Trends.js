@@ -7,6 +7,7 @@ import { isEmpty } from './Utils';
 
 const Trends = () => {
     const posts = useSelector((state) => state.postsReducer);
+    const userData = useSelector((state) => state.userReducer);
     const usersData = useSelector((state) => state.usersReducer);
     const trendingList = useSelector((state) => state.trendingReducer);
     const dispatch = useDispatch();
@@ -21,6 +22,10 @@ const Trends = () => {
         }
     }, [posts, dispatch]);
 
+    const getUsers = () => {
+        return [...usersData.filter((user) => user._id !== userData._id), userData];
+    }
+
     return Array.isArray(usersData) ? (
         <div className="trending-container">
             <h4>Trending</h4>
@@ -32,7 +37,7 @@ const Trends = () => {
                                 <div>
                                     {post.picture && <img src={env.API_BASE_URL + post.picture} alt="post-pic" />}
                                     {isEmpty(post.picture) && (
-                                        <img alt="profil-pic" src={env.API_BASE_URL + usersData.filter((user) => user._id === post.userId)[0]['picture']} />
+                                        <img alt="profil-pic" src={env.API_BASE_URL + getUsers().filter((user) => user._id === post.userId)[0]['picture']} />
                                     )}
                                 </div>
                                 <div className="trend-content">

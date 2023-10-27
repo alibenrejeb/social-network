@@ -10,6 +10,7 @@ import { addComment } from '../../actions/post';
 const CardComments = ({ post }) => {
     const [text, setText] = useState("");
     const [currentUser] = useContext(UserContext);
+    const userData = useSelector((state) => state.usersReducer);
     const usersData = useSelector((state) => state.usersReducer);
     const dispatch = useDispatch();
 
@@ -21,6 +22,10 @@ const CardComments = ({ post }) => {
         }
     };
 
+    const getUsers = () => {
+        return [...usersData.filter((user) => user._id !== userData._id), userData];
+    };
+
     return (
         <div className="comments-container">
             {post.comments.map((comment) => {
@@ -30,7 +35,7 @@ const CardComments = ({ post }) => {
                         className={comment.userId === currentUser.user?.userId ? "comment-container client" : "comment-container"}
                     >
                         <div className="left-part">
-                            <img alt="commenter-pic" src={env.API_BASE_URL + usersData.filter((user) => user._id === comment.userId)[0]['picture']} />
+                            <img alt="commenter-pic" src={env.API_BASE_URL + getUsers().filter((user) => user._id === comment.userId)[0]['picture']} />
                         </div>
                         <div className="right-part">
                             <div className="comment-header">

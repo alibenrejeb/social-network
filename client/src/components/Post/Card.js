@@ -13,6 +13,7 @@ const Card = ({ post }) => {
     const [isUpdated, setIsUpdated] = useState(false);
     const [message, setMessage] = useState(null);
     const [showComments, setShowComments] = useState(false);
+    const userData = useSelector((state) => state.userReducer);
     const usersData = useSelector((state) => state.usersReducer);
     const [ currentUser, ] = useContext(UserContext);
     const dispatch = useDispatch();
@@ -24,6 +25,10 @@ const Card = ({ post }) => {
         setIsUpdated(false);
     };
 
+    const getUsers = () => {
+        return [...usersData.filter((user) => user._id !== userData._id), userData];
+    };
+
     return (
         <li className="card-container" key={post._id}>
             {usersData.length <= 0 ? (
@@ -31,7 +36,7 @@ const Card = ({ post }) => {
             ): (
                 <>
                     <div className="card-left">
-                        <img alt="poster-pic" src={env.API_BASE_URL + usersData.filter((user) => user._id === post.userId)[0]['picture']} />
+                        <img alt="poster-pic" src={env.API_BASE_URL + getUsers().filter((user) => user._id === post.userId)[0]['picture']} />
                     </div>
                     <div className="card-right">
                         <div className="card-header">
