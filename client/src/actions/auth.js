@@ -5,7 +5,7 @@ export const signin = (formData, navigate) => async (dispatch) => {
     try {
         const { data } = await api.signIn(formData);
         dispatch({ type: AUTH, payload: data });
-        window.location = '/';
+        navigate('/');
     } catch (error) {
         console.log(error.message);
     }

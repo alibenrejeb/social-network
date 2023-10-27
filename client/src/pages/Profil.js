@@ -8,7 +8,7 @@ const Profil = () => {
 
     return (
       <div className="profil-page">
-        {currentUser ? (
+        {currentUser?.user ? (
           <UpdateProfil />
         ) : (
           <div className="log-container">

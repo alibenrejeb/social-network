@@ -42,7 +42,7 @@ const SignUpForm = () => {
         if (!acceptTerms) {
             setErrorTerms('Veuillez valider les conditions générales');
         }
-    
+
         if (formData.password !== formData.confiramtion) {
             setErrorConfirmation('Les mots de passe ne correspondent pas');
         }

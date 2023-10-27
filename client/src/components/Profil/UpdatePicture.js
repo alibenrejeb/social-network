@@ -23,7 +23,7 @@ export default function UpdatePicture() {
       action=""
       onSubmit={handlePicture}
       className="upload-pic"
-      enctype="multipart/form-data"
+      encType="multipart/form-data"
     >
       <label htmlFor="file">Changer votre avatar</label>
       <input
