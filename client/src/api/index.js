@@ -16,7 +16,11 @@ export const signIn = (formData) => api.post('/api/auth/login', formData);
 export const signUp = (formData) => api.post('/api/auth/register', formData);
 
 export const getUser = (userId) => api.get(`/api/user/${userId}`);
-export const getUsers = () => api.get('/api/user');
+export const getUsers = () => api.get("/api/user");
+export const updateUser = (userId, data) =>
+  api.put(`/api/user/${userId}`, data);
+export const updatePicture = (formData, userId, type) =>
+  api.post(`/api/user/${userId}/upload/${type}`, formData);
 
 export const getPosts = (limit) => api.get(`/api/post?limit=${limit}`);
 export const getAllPosts = () => api.get(`/api/post`);

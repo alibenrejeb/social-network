@@ -1,5 +1,6 @@
 const objectId = require("mongoose").Types.ObjectId;
 const User = require("../models/user.model");
+const fs = require("fs");
 
 exports.tokenCheck = (req, res) => {
     return res.status(200).json({ user: req.auth.userId });
@@ -118,9 +119,14 @@ exports.upload = async (req, res) => {
     }
 
     try {
+        const userSearch = await User.findById(req.params.id).select("-password");
+        if (userSearch && userSearch.picture) {
+          fs.unlink(userSearch.picture.replace(/\//, ""), () => {});
+        }
+        const path = req?.file ? req.file.path : req.files[0].path;
         const user = await User.findByIdAndUpdate(
             req.params.id,
-            { $set: { picture: `/${req.file.path}` } },
+            { $set: { picture: "/" + path } },
             { new: true, upsert: true, setDefaultsOnInsert: true }
         ).select("-password");
 

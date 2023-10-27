@@ -6,6 +6,8 @@ export const CLEAN_AUTH_ERROR = 'CLEAN_AUTH_ERROR';
 
 export const GET_USER = "GET_USER";
 export const GET_USERS = "GET_USERS";
+export const UPDATE_BIO = "UPDATE_BIO";
+export const UPDATE_PICTURE = "UPDATE_PICTURE";
 
 export const ADD_POST = "ADD_POST";
 export const GET_POSTS = "GET_POSTS";
