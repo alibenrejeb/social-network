@@ -63,7 +63,7 @@ export default function UpdateProfil() {
               {userData.following ? userData?.following?.length : ""}
             </h5>
             <h5 onClick={() => setFollowersPopup(true)}>
-              Abonnés : {userData.followers ? userData?.followers?.length : ""}
+              abonnés : {userData.followers ? userData?.followers?.length : ""}
             </h5>
           </div>
         </div>
@@ -72,7 +72,7 @@ export default function UpdateProfil() {
           followingPopup && (
             <div className="popup-profil-container">
               <div className="modal">
-                <h3>Abonnements</h3>
+                <h3>abonnements</h3>
                 <span
                   className="cross"
                   onClick={() => setFollowingPopup(false)}

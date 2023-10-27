@@ -1,4 +1,10 @@
-import { GET_USER, UPDATE_BIO, UPDATE_PICTURE } from "../constants/actionTypes";
+import {
+  GET_USER,
+  UPDATE_BIO,
+  UPDATE_PICTURE,
+  FOLLOW_USER,
+  UNFOLLOW_USER,
+} from "../constants/actionTypes";
 import * as api from '../api';
 
 export const getUser = (userId) => async (dispatch) => {
@@ -28,4 +34,22 @@ export const updatePicture = (formData, userId, type) => async (dispatch) => {
     } catch (error) {
       console.log(error.message);
     }
+};
+
+export const followUser = (userId, followId) => async (dispatch) => {
+  try {
+    await api.followUser(userId, followId);
+    dispatch({ type: FOLLOW_USER, payload: followId });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const unfollowUser = (userId, unfollowId) => async (dispatch) => {
+  try {
+    await api.unfollowUser(userId, unfollowId);
+    dispatch({ type: UNFOLLOW_USER, payload: unfollowId });
+  } catch (error) {
+    console.log(error.message);
+  }
 };

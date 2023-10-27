@@ -21,6 +21,10 @@ export const updateUser = (userId, data) =>
   api.put(`/api/user/${userId}`, data);
 export const updatePicture = (formData, userId, type) =>
   api.post(`/api/user/${userId}/upload/${type}`, formData);
+export const followUser = (userId, followId) =>
+  api.patch(`/api/user/${userId}/follow`, { followId });
+export const unfollowUser = (userId, unfollowId) =>
+  api.patch(`/api/user/${userId}/unfollow`, { unfollowId });
 
 export const getPosts = (limit) => api.get(`/api/post?limit=${limit}`);
 export const getAllPosts = () => api.get(`/api/post`);
