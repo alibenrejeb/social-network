@@ -10,8 +10,8 @@ const LikeButton = ({ post }) => {
     const dispatch = useDispatch();
 
     const handleLike = (like) => {
-        dispatch(likePost(post._id, { userId: currentUser?.user?.userId, like }));
         dispatch(getAllPosts());
+        dispatch(likePost(post._id, { userId: currentUser?.user?.userId, like }));
     };
 
     return (

@@ -39,7 +39,7 @@ export const updatePicture = (formData, userId, type) => async (dispatch) => {
 export const followUser = (userId, followId) => async (dispatch) => {
   try {
     await api.followUser(userId, followId);
-    dispatch({ type: FOLLOW_USER, payload: followId });
+    dispatch({ type: FOLLOW_USER, payload: {userId, followId} });
   } catch (error) {
     console.log(error.message);
   }
@@ -48,7 +48,7 @@ export const followUser = (userId, followId) => async (dispatch) => {
 export const unfollowUser = (userId, unfollowId) => async (dispatch) => {
   try {
     await api.unfollowUser(userId, unfollowId);
-    dispatch({ type: UNFOLLOW_USER, payload: unfollowId });
+    dispatch({ type: UNFOLLOW_USER, payload: {userId, unfollowId} });
   } catch (error) {
     console.log(error.message);
   }

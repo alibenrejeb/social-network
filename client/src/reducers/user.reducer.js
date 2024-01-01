@@ -15,9 +15,17 @@ const userReducer = (state = {}, action) => {
         case UPDATE_PICTURE:
             return { ...state, picture: action.payload };
         case FOLLOW_USER:
-            return { ...state, following: [...state.following, action.payload] };
+            return {
+              ...state,
+              following: [...state.following, action.payload.followId],
+            };
         case UNFOLLOW_USER:
-            return { ...state, following: state.following.filter((user) => user !== action.payload) };
+            return {
+              ...state,
+              following: state.following.filter(
+                (user) => user !== action.payload.unfollowId
+              ),
+            };
         default:
             return state;
     }

@@ -75,13 +75,19 @@ exports.follow = async (req, res) => {
     }
 
     try {
-        const user = await User.findByIdAndUpdate(
-            req.params.id,
-            { $addToSet: { following: req.body.followId, followers: req.body.followId} },
-            { new: true, upsert: true }
+        await User.findByIdAndUpdate(
+          req.params.id,
+          { $addToSet: { following: req.body.followId } },
+          { new: true, upsert: true }
         ).select("-password");
 
-        return res.status(200).json(user);
+        await User.findByIdAndUpdate(
+          req.body.followId,
+          { $addToSet: { followers: req.params.id } },
+          { new: true, upsert: true }
+        ).select("-password");
+
+        return res.status(204).json({});
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
@@ -101,13 +107,19 @@ exports.unfollow = async (req, res) => {
     }
 
     try {
-        const user = await User.findByIdAndUpdate(
-            req.params.id,
-            { $pull: { following: req.body.unfollowId, followers: req.body.unfollowId} },
-            { new: true, upsert: true }
+        await User.findByIdAndUpdate(
+          req.params.id,
+          { $pull: { following: req.body.unfollowId } },
+          { new: true, upsert: true }
         ).select("-password");
 
-        return res.status(200).json(user);
+        await User.findByIdAndUpdate(
+          req.body.unfollowId,
+          { $pull: { followers: req.params.id } },
+          { new: true, upsert: true }
+        ).select("-password");
+
+        return res.status(204).json({});
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }

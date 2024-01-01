@@ -35,7 +35,7 @@ export const likePost = (postId, {userId, like}) => async (dispatch) => {
         await api.likePost(postId, {userId, like});
         dispatch({ type: LIKE_POST, payload: {postId, data: {userId, like}} });
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
     }
 };
 
