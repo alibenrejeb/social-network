@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
-import { getTrends } from '../actions/trend';
+import { getPostTrends } from '../actions/post';
 import env from "react-dotenv";
 import { isEmpty } from './Utils';
 
 const Trends = () => {
-    const posts = useSelector((state) => state.postsReducer);
     const userData = useSelector((state) => state.userReducer);
     const usersData = useSelector((state) => state.usersReducer);
     const trendingList = useSelector((state) => state.trendingReducer);
@@ -14,13 +13,8 @@ const Trends = () => {
 
     useEffect(() => {
         console.log('useEffect Trends is called');
-        if (Object.keys(posts).length > 0) {
-            const trendingPosts = Object.keys(posts).map((i) => posts[i]);
-            let sortedTrendingPosts = trendingPosts.sort((a, b) => b.usersLiked.length - a.usersLiked.length);
-            sortedTrendingPosts.length = 3;
-            dispatch(getTrends(sortedTrendingPosts));
-        }
-    }, [posts, dispatch]);
+        dispatch(getPostTrends());
+    }, [dispatch]);
 
     const getUsers = () => {
         return [...usersData.filter((user) => user._id !== userData._id), userData];
@@ -31,7 +25,7 @@ const Trends = () => {
             <h4>Trending</h4>
             <NavLink exact="true" to="/trending">
                 <ul>
-                    {trendingList.length && trendingList.map((post) => {
+                    {trendingList.length && trendingList?.map((post) => {
                         return (
                             <li key={post._id}>
                                 <div>

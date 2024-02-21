@@ -1,4 +1,4 @@
-import { ADD_COMMENT, ADD_POST, DELETE_COMMENT, DELETE_POST, EDIT_COMMENT, GET_ALL_POSTS, GET_POSTS, GET_POST_ERRORS, LIKE_POST, UPDATE_POST } from '../constants/actionTypes';
+import { ADD_COMMENT, ADD_POST, DELETE_COMMENT, DELETE_POST, EDIT_COMMENT, GET_ALL_POSTS, GET_POSTS, GET_POST_ERRORS, GET_POST_TRENDS, LIKE_POST, UPDATE_POST } from '../constants/actionTypes';
 import * as api from '../api';
 
 export const getPosts = (limit) => async (dispatch) => {
@@ -9,6 +9,16 @@ export const getPosts = (limit) => async (dispatch) => {
         console.log(error.message);
         dispatch({ type: GET_POST_ERRORS, payload: error.response.data.errors });
     }
+};
+
+export const getPostTrends = () => async (dispatch) => {
+  try {
+    const { data } = await api.getPostsTrend();
+    dispatch({ type: GET_POST_TRENDS, payload: data });
+  } catch (error) {
+    console.log(error.message);
+    dispatch({ type: GET_POST_ERRORS, payload: error.response.data.errors });
+  }
 };
 
 export const getAllPosts = () => async (dispatch) => {

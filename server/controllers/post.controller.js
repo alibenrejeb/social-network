@@ -1,12 +1,21 @@
 const Post = require('../models/post.model');
 const ObjectId = require("mongoose").Types.ObjectId;
 
-exports.read = async (req, res) => {
+exports.getAll = async (req, res) => {
     try {
         const query = Post.find().sort({ createdAt: -1 });
         if (req.query.limit) {
             query.limit(req.query.limit);
         }
+        return res.status(200).json(await query.exec());
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+};
+
+exports.getPostsTrend = async (req, res) => {
+    try {
+        const query = Post.find().sort({ totalLikes: -1 }).limit(3);
         return res.status(200).json(await query.exec());
     } catch (error) {
         return res.status(500).json({ error: error.message });
@@ -82,6 +91,7 @@ exports.like = async (req, res) => {
             postUpdated,
             { new: true }
         )
+        await Post.incrementTotalLikes(req.params.id, like);
         return res.status(200).json(post);
     } catch (error) {
         return res.status(500).json({ error: error.message });

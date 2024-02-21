@@ -27,6 +27,7 @@ export const unfollowUser = (userId, unfollowId) =>
   api.patch(`/api/user/${userId}/unfollow`, { unfollowId });
 
 export const getPosts = (limit) => api.get(`/api/post?limit=${limit}`);
+export const getPostsTrend = () => api.get(`/api/post/trending`);
 export const getAllPosts = () => api.get(`/api/post`);
 export const addPost = (data) => api.post('/api/post/messages', data);
 export const likePost = (postId, {userId, like}) => api.patch(`/api/post/${postId}/like`, {userId, like});

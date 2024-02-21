@@ -13,6 +13,7 @@ export const UNFOLLOW_USER = "UNFOLLOW_USER";
 
 export const ADD_POST = "ADD_POST";
 export const GET_POSTS = "GET_POSTS";
+export const GET_POST_TRENDS = "GET_POST_TRENDS";
 export const GET_ALL_POSTS = "GET_ALL_POSTS";
 export const UPDATE_POST = "UPDATE_POST";
 export const DELETE_POST = "DELETE_POST";

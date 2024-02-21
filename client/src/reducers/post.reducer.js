@@ -7,19 +7,26 @@ const postReducer = (state = {}, action) => {
         case GET_POSTS:
             return action.payload;
         case LIKE_POST:
-            return state.slice().map((post) => {
-                return (post._id === action.payload.postId)
-                ? (action.payload.data.like)
-                    ? {
-                        ...post,
-                        usersLiked: [...post.usersLiked, action.payload.data.userId]
-                    }
-                    : {
-                        ...post,
-                        usersLiked: post.usersLiked.filter((id) => id !== action.payload.data.userId)
-                    }
-                : post;
-            });
+            return Array.isArray(state)
+              ? state.slice().map((post) => {
+                  return post._id === action.payload.postId
+                    ? action.payload.data.like
+                      ? {
+                          ...post,
+                          usersLiked: [
+                            ...post.usersLiked,
+                            action.payload.data.userId,
+                          ],
+                        }
+                      : {
+                          ...post,
+                          usersLiked: post.usersLiked.filter(
+                            (id) => id !== action.payload.data.userId
+                          ),
+                        }
+                    : post;
+                })
+              : [];
         case UPDATE_POST:
             return state.slice().map((post) => {
                 return (post._id === action.payload.postId) ? {...post, message: action.payload.data.message} : post;
